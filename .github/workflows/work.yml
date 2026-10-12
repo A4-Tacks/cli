@@ -1,0 +1,22 @@
+name: work
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  work:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      #- run: make
+      - run: GOOS=linux GOARCH=arm GOARM=7 CGO_ENABLED=0 make clean bin/gh
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bin
+          path: bin
+      - run: false
